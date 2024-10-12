@@ -33,8 +33,3 @@ func NewModulesRequestBuilder(rawUrl string, requestAdapter i2ae4187f7daee263371
     urlParams["request-raw-url"] = rawUrl
     return NewModulesRequestBuilderInternal(urlParams, requestAdapter)
 }
-// Publish the publish property
-// returns a *ModulesPublishRequestBuilder when successful
-func (m *ModulesRequestBuilder) Publish()(*ModulesPublishRequestBuilder) {
-    return NewModulesPublishRequestBuilderInternal(m.BaseRequestBuilder.PathParameters, m.BaseRequestBuilder.RequestAdapter)
-}

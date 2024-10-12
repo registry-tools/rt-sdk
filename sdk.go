@@ -2,86 +2,168 @@ package sdk
 
 import (
 	"context"
+	"crypto/md5"
+	b64 "encoding/base64"
 	"fmt"
+	"io"
+	"net/http"
+	nethttp "net/http"
 	u "net/url"
-	"sync"
+	"strings"
 	"time"
 
 	"github.com/registry-tools/rt-sdk/generated"
 	"github.com/registry-tools/rt-sdk/generated/api"
-	internalauth "github.com/registry-tools/rt-sdk/generated/auth"
 	"github.com/registry-tools/rt-sdk/generated/wellknown"
 
+	svchost "github.com/hashicorp/terraform-svchost"
+	svcdisco "github.com/hashicorp/terraform-svchost/disco"
 	auth "github.com/microsoft/kiota-abstractions-go/authentication"
-	bundle "github.com/microsoft/kiota-bundle-go"
 )
-
-type accessTokenProvider struct {
-	allowedHosts          *auth.AllowedHostsValidator
-	clientID              string
-	clientSecret          string
-	host                  string
-	accessToken           *string
-	accessTokenExpiration time.Time
-	mu                    sync.Mutex
-}
-
-var _ auth.AccessTokenProvider = &accessTokenProvider{}
-
-func (c *accessTokenProvider) GetAllowedHostsValidator() *auth.AllowedHostsValidator {
-	return c.allowedHosts
-}
-
-func (c *accessTokenProvider) getClientForTokenRefresh() (*generated.ApiClient, error) {
-	provider, err := auth.NewApiKeyAuthenticationProvider("see query", "X-RT-SDK-REAUTH", auth.HEADER_KEYLOCATION)
-	if err != nil {
-		return nil, fmt.Errorf("error creating no-op auth provider for token refresh: %w", err)
-	}
-	adapter, err := bundle.NewDefaultRequestAdapter(provider)
-	if err != nil {
-		return nil, fmt.Errorf("error creating request adapter for token refresh: %w", err)
-	}
-	adapter.SetBaseUrl(fmt.Sprintf("https://%s", c.host))
-	return generated.NewApiClient(adapter), nil
-}
-
-func (c *accessTokenProvider) GetAuthorizationToken(context context.Context, url *u.URL, additionalAuthenticationContext map[string]interface{}) (string, error) {
-	if c.accessToken != nil && (time.Now().Before(c.accessTokenExpiration)) {
-		return *c.accessToken, nil
-	}
-
-	c.mu.Lock()
-	defer c.mu.Unlock()
-
-	if c.accessToken != nil && (time.Now().Before(c.accessTokenExpiration)) {
-		return *c.accessToken, nil
-	}
-
-	tokenClient, err := c.getClientForTokenRefresh()
-	if err != nil {
-		return "", err
-	}
-
-	authorizationCode := "authorization_code"
-	tokenRequestBody := internalauth.NewTokenPostRequestBody()
-	tokenRequestBody.SetClientId(&c.clientID)
-	tokenRequestBody.SetClientSecret(&c.clientSecret)
-	tokenRequestBody.SetGrantType(&authorizationCode)
-
-	response, err := tokenClient.Auth().Token().PostAsTokenPostResponse(context, tokenRequestBody, nil)
-	if err != nil {
-		return "", fmt.Errorf("failed refreshing token: %w", err)
-	}
-
-	c.accessToken = response.GetAccessToken()
-	c.accessTokenExpiration = time.Now().Add(time.Duration(*response.GetExpiresIn()) * time.Second)
-
-	return *c.accessToken, nil
-}
 
 type SDK interface {
 	Api() *api.ApiRequestBuilder
 	WellKnown() *wellknown.WellKnownRequestBuilder
+	Client() *nethttp.Client
+	Endpoint() *u.URL
+	UploadFileArchive(ctx context.Context, key string, archive io.ReadSeeker) (*string, error)
+}
+
+type sdk struct {
+	client   *generated.ApiClient
+	http     *nethttp.Client
+	endpoint *u.URL
+}
+
+func (s *sdk) Api() *api.ApiRequestBuilder {
+	return s.client.Api()
+}
+
+func (s *sdk) WellKnown() *wellknown.WellKnownRequestBuilder {
+	return s.client.WellKnown()
+}
+
+func (s *sdk) Client() *nethttp.Client {
+	return s.http
+}
+
+func (s *sdk) Endpoint() *u.URL {
+	return s.endpoint
+}
+
+// UploadFileArchive uploads a gzip file archive to the service and returns a signed ID
+// that can be used in conjunction with creating other types of resources, such
+// as terraform module versions.
+func (s *sdk) UploadFileArchive(ctx context.Context, key string, archive io.ReadSeeker) (*string, error) {
+	h := md5.New()
+	size, err := io.Copy(h, archive)
+	if err != nil {
+		return nil, fmt.Errorf("failed to checksum archive: %w", err)
+	}
+
+	checksum := b64.StdEncoding.EncodeToString(h.Sum(nil))
+	contentType := "application/gzip"
+
+	body := api.NewArchivesPostRequestBody()
+	body.SetName(&key)
+	body.SetChecksumMd5Base64(&checksum)
+	body.SetSizeBytes(&size)
+	body.SetContentType(&contentType)
+
+	response, err := s.Api().Archives().PostAsArchivesPostResponse(ctx, body, nil)
+	if err != nil {
+		return nil, fmt.Errorf("failed to prepare file upload: %w", err)
+	}
+
+	uploadURL := response.GetMeta().GetUploadUrl()
+	_, err = archive.Seek(0, io.SeekStart)
+	if err != nil {
+		return nil, fmt.Errorf("failed to rewind archive: %w", err)
+	}
+
+	putRequest, err := http.NewRequest(http.MethodPut, *uploadURL, archive)
+	if err != nil {
+		return nil, fmt.Errorf("failed to initialize upload request: %w", err)
+	}
+
+	for key, value := range response.GetMeta().GetHeaders().GetAdditionalData() {
+		val := value.(*string)
+		if val != nil {
+			putRequest.Header.Set(key, *val)
+		}
+	}
+	putRequest.ContentLength = size
+	uploadResponse, err := s.Client().Do(putRequest)
+	if err != nil {
+		return nil, fmt.Errorf("failed to upload module: %w", err)
+	}
+
+	if uploadResponse.StatusCode >= 300 {
+		body, _ := io.ReadAll(uploadResponse.Body)
+		return nil, fmt.Errorf("unexpected status when uploading module: %s, %s", uploadResponse.Status, body)
+	}
+
+	return response.GetData().GetSignedId(), nil
+}
+
+func discover(host string) (*u.URL, error) {
+	svchost, err := svchost.ForComparison(host)
+	if err != nil {
+		return nil, fmt.Errorf("invalid hostname %q: %w", host, err)
+	}
+
+	disco := svcdisco.New()
+	url, err := disco.DiscoverServiceURL(svchost, "rt.v1")
+	if err != nil {
+		return nil, fmt.Errorf("error discovering service URL: %w", err)
+	}
+
+	return url, nil
+}
+
+func sdkWithAuthProvider(host string, atp *accessTokenProvider) (SDK, error) {
+	authProvider := auth.NewBaseBearerTokenAuthenticationProvider(atp)
+
+	adapter, err := NewRequestAdapter(authProvider, nil)
+	if err != nil {
+		return nil, fmt.Errorf("error creating request adapter: %w", err)
+	}
+
+	serviceURL, err := discover(host)
+	if err != nil {
+		return nil, err
+	}
+
+	// The generated SDK already knows about the "/api" part of the URL, so
+	// it needs to be removed.
+	baseURL, _ := strings.CutSuffix(serviceURL.String(), "/api")
+	adapter.SetBaseUrl(baseURL)
+
+	client := generated.NewApiClient(adapter)
+
+	return &sdk{
+		client:   client,
+		http:     adapter.Client,
+		endpoint: serviceURL,
+	}, nil
+}
+
+func NewSDKWithAccessToken(host, accessToken string) (SDK, error) {
+	validator, err := auth.NewAllowedHostsValidatorErrorCheck([]string{
+		host,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("invalid host configuration: %w", err)
+	}
+
+	tokenProvider := &accessTokenProvider{
+		allowedHosts:          validator,
+		accessToken:           &accessToken,
+		accessTokenExpiration: time.Now().Add(876000 * time.Hour), // 100 years
+		host:                  host,
+	}
+
+	return sdkWithAuthProvider(host, tokenProvider)
 }
 
 func NewSDK(host, clientID, clientSecret string) (SDK, error) {
@@ -99,13 +181,5 @@ func NewSDK(host, clientID, clientSecret string) (SDK, error) {
 		host:         host,
 	}
 
-	authProvider := auth.NewBaseBearerTokenAuthenticationProvider(tokenProvider)
-
-	adapter, err := bundle.NewDefaultRequestAdapter(authProvider)
-	if err != nil {
-		return nil, fmt.Errorf("error creating request adapter: %w", err)
-	}
-	adapter.SetBaseUrl(fmt.Sprintf("https://%s", host))
-
-	return generated.NewApiClient(adapter), nil
+	return sdkWithAuthProvider(host, tokenProvider)
 }

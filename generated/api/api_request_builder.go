@@ -8,6 +8,11 @@ import (
 type ApiRequestBuilder struct {
     i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.BaseRequestBuilder
 }
+// Archives the archives property
+// returns a *ArchivesRequestBuilder when successful
+func (m *ApiRequestBuilder) Archives()(*ArchivesRequestBuilder) {
+    return NewArchivesRequestBuilderInternal(m.BaseRequestBuilder.PathParameters, m.BaseRequestBuilder.RequestAdapter)
+}
 // AuthenticationTokens the authenticationTokens property
 // returns a *AuthenticationTokensRequestBuilder when successful
 func (m *ApiRequestBuilder) AuthenticationTokens()(*AuthenticationTokensRequestBuilder) {
@@ -45,6 +50,11 @@ func (m *ApiRequestBuilder) ServiceAccounts()(*ServiceAccountsRequestBuilder) {
 // returns a *TagPublishersRequestBuilder when successful
 func (m *ApiRequestBuilder) TagPublishers()(*TagPublishersRequestBuilder) {
     return NewTagPublishersRequestBuilderInternal(m.BaseRequestBuilder.PathParameters, m.BaseRequestBuilder.RequestAdapter)
+}
+// TerraformModuleVersions the terraformModuleVersions property
+// returns a *TerraformModuleVersionsRequestBuilder when successful
+func (m *ApiRequestBuilder) TerraformModuleVersions()(*TerraformModuleVersionsRequestBuilder) {
+    return NewTerraformModuleVersionsRequestBuilderInternal(m.BaseRequestBuilder.PathParameters, m.BaseRequestBuilder.RequestAdapter)
 }
 // VcsConnectors the vcsConnectors property
 // returns a *VcsConnectorsRequestBuilder when successful
