@@ -7,6 +7,8 @@ import (
 type NamespacesItemTagPublishersPostRequestBody_tagPublisher struct {
     // Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
     additionalData map[string]any
+    // The backfillPattern property
+    backfillPattern *string
     // The repo property
     repo *string
     // The vcsConnectorId property
@@ -29,10 +31,25 @@ func CreateNamespacesItemTagPublishersPostRequestBody_tagPublisherFromDiscrimina
 func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) GetAdditionalData()(map[string]any) {
     return m.additionalData
 }
+// GetBackfillPattern gets the backfill-pattern property value. The backfillPattern property
+// returns a *string when successful
+func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) GetBackfillPattern()(*string) {
+    return m.backfillPattern
+}
 // GetFieldDeserializers the deserialization information for the current model
 // returns a map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error) when successful
 func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) GetFieldDeserializers()(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error)) {
     res := make(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error))
+    res["backfill-pattern"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
+        val, err := n.GetStringValue()
+        if err != nil {
+            return err
+        }
+        if val != nil {
+            m.SetBackfillPattern(val)
+        }
+        return nil
+    }
     res["repo"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
         val, err := n.GetStringValue()
         if err != nil {
@@ -68,6 +85,12 @@ func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) GetVcsConnecto
 // Serialize serializes information the current object
 func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.SerializationWriter)(error) {
     {
+        err := writer.WriteStringValue("backfill-pattern", m.GetBackfillPattern())
+        if err != nil {
+            return err
+        }
+    }
+    {
         err := writer.WriteStringValue("repo", m.GetRepo())
         if err != nil {
             return err
@@ -91,6 +114,10 @@ func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) Serialize(writ
 func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) SetAdditionalData(value map[string]any)() {
     m.additionalData = value
 }
+// SetBackfillPattern sets the backfill-pattern property value. The backfillPattern property
+func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) SetBackfillPattern(value *string)() {
+    m.backfillPattern = value
+}
 // SetRepo sets the repo property value. The repo property
 func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) SetRepo(value *string)() {
     m.repo = value
@@ -102,8 +129,10 @@ func (m *NamespacesItemTagPublishersPostRequestBody_tagPublisher) SetVcsConnecto
 type NamespacesItemTagPublishersPostRequestBody_tagPublisherable interface {
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.AdditionalDataHolder
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable
+    GetBackfillPattern()(*string)
     GetRepo()(*string)
     GetVcsConnectorId()(*string)
+    SetBackfillPattern(value *string)()
     SetRepo(value *string)()
     SetVcsConnectorId(value *string)()
 }

@@ -1,8 +1,8 @@
 {
-  "descriptionHash": "06820B01F38F857407197D069596DFDE6A97E384AD3806FCC17042BEA582046F01B737D25C74B9FB32D274FAF0B115975376E4541FE42FC7067B8D308F9639D5",
+  "descriptionHash": "FDBF7EB0B3DF131B93D1A157B8AF3E322E27C101786256BF4F76678CF38913DF2C71073C0F731A80C57714C2E7392782C4E474428DC478BDECC6B1981AABDC11",
   "descriptionLocation": "../openapi.yaml",
   "lockFileVersion": "1.0.0",
-  "kiotaVersion": "1.19.0",
+  "kiotaVersion": "1.19.1",
   "clientClassName": "ApiClient",
   "typeAccessModifier": "Public",
   "clientNamespaceName": "github.com/registry-tools/rt-sdk/generated",
