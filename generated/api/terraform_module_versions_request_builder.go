@@ -34,7 +34,7 @@ func NewTerraformModuleVersionsRequestBuilder(rawUrl string, requestAdapter i2ae
 // Deprecated: This method is obsolete. Use PostAsTerraformModuleVersionsPostResponse instead.
 // returns a TerraformModuleVersionsResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *TerraformModuleVersionsRequestBuilder) Post(ctx context.Context, body TerraformModuleVersionsPostRequestBodyable, requestConfiguration *TerraformModuleVersionsRequestBuilderPostRequestConfiguration)(TerraformModuleVersionsResponseable, error) {
+func (m *TerraformModuleVersionsRequestBuilder) Post(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.TerraformModuleVersionable, requestConfiguration *TerraformModuleVersionsRequestBuilderPostRequestConfiguration)(TerraformModuleVersionsResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -54,7 +54,7 @@ func (m *TerraformModuleVersionsRequestBuilder) Post(ctx context.Context, body T
 // PostAsTerraformModuleVersionsPostResponse publish a Terraform Module Version
 // returns a TerraformModuleVersionsPostResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *TerraformModuleVersionsRequestBuilder) PostAsTerraformModuleVersionsPostResponse(ctx context.Context, body TerraformModuleVersionsPostRequestBodyable, requestConfiguration *TerraformModuleVersionsRequestBuilderPostRequestConfiguration)(TerraformModuleVersionsPostResponseable, error) {
+func (m *TerraformModuleVersionsRequestBuilder) PostAsTerraformModuleVersionsPostResponse(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.TerraformModuleVersionable, requestConfiguration *TerraformModuleVersionsRequestBuilderPostRequestConfiguration)(TerraformModuleVersionsPostResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -73,7 +73,7 @@ func (m *TerraformModuleVersionsRequestBuilder) PostAsTerraformModuleVersionsPos
 }
 // ToPostRequestInformation publish a Terraform Module Version
 // returns a *RequestInformation when successful
-func (m *TerraformModuleVersionsRequestBuilder) ToPostRequestInformation(ctx context.Context, body TerraformModuleVersionsPostRequestBodyable, requestConfiguration *TerraformModuleVersionsRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
+func (m *TerraformModuleVersionsRequestBuilder) ToPostRequestInformation(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.TerraformModuleVersionable, requestConfiguration *TerraformModuleVersionsRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
     requestInfo := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.POST, m.BaseRequestBuilder.UrlTemplate, m.BaseRequestBuilder.PathParameters)
     if requestConfiguration != nil {
         requestInfo.Headers.AddAll(requestConfiguration.Headers)

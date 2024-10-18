@@ -14,6 +14,7 @@ import (
 
 	"github.com/registry-tools/rt-sdk/generated"
 	"github.com/registry-tools/rt-sdk/generated/api"
+	"github.com/registry-tools/rt-sdk/generated/models"
 	"github.com/registry-tools/rt-sdk/generated/wellknown"
 
 	svchost "github.com/hashicorp/terraform-svchost"
@@ -64,7 +65,7 @@ func (s *sdk) UploadFileArchive(ctx context.Context, key string, archive io.Read
 	checksum := b64.StdEncoding.EncodeToString(h.Sum(nil))
 	contentType := "application/gzip"
 
-	body := api.NewArchivesPostRequestBody()
+	body := models.NewArchive()
 	body.SetName(&key)
 	body.SetChecksumMd5Base64(&checksum)
 	body.SetSizeBytes(&size)

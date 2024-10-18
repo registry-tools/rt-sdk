@@ -64,7 +64,7 @@ func (c *accessTokenProvider) GetAuthorizationToken(context context.Context, url
 	tokenRequestBody.SetClientSecret(&c.clientSecret)
 	tokenRequestBody.SetGrantType(&authorizationCode)
 
-	response, err := tokenClient.Auth().Token().PostAsTokenPostResponse(context, tokenRequestBody, nil)
+	response, err := tokenClient.Auth().Token().Post(context, tokenRequestBody, nil)
 	if err != nil {
 		return "", fmt.Errorf("failed refreshing token: %w", err)
 	}

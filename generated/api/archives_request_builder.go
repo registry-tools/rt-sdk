@@ -30,11 +30,11 @@ func NewArchivesRequestBuilder(rawUrl string, requestAdapter i2ae4187f7daee26337
     urlParams["request-raw-url"] = rawUrl
     return NewArchivesRequestBuilderInternal(urlParams, requestAdapter)
 }
-// Post register a new gzip archive to be uploaded to the URL indicated in the response
+// Post register a new file archive to be uploaded to the URL indicated in the response
 // Deprecated: This method is obsolete. Use PostAsArchivesPostResponse instead.
 // returns a ArchivesResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *ArchivesRequestBuilder) Post(ctx context.Context, body ArchivesPostRequestBodyable, requestConfiguration *ArchivesRequestBuilderPostRequestConfiguration)(ArchivesResponseable, error) {
+func (m *ArchivesRequestBuilder) Post(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Archiveable, requestConfiguration *ArchivesRequestBuilderPostRequestConfiguration)(ArchivesResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -51,10 +51,10 @@ func (m *ArchivesRequestBuilder) Post(ctx context.Context, body ArchivesPostRequ
     }
     return res.(ArchivesResponseable), nil
 }
-// PostAsArchivesPostResponse register a new gzip archive to be uploaded to the URL indicated in the response
+// PostAsArchivesPostResponse register a new file archive to be uploaded to the URL indicated in the response
 // returns a ArchivesPostResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *ArchivesRequestBuilder) PostAsArchivesPostResponse(ctx context.Context, body ArchivesPostRequestBodyable, requestConfiguration *ArchivesRequestBuilderPostRequestConfiguration)(ArchivesPostResponseable, error) {
+func (m *ArchivesRequestBuilder) PostAsArchivesPostResponse(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Archiveable, requestConfiguration *ArchivesRequestBuilderPostRequestConfiguration)(ArchivesPostResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -71,9 +71,9 @@ func (m *ArchivesRequestBuilder) PostAsArchivesPostResponse(ctx context.Context,
     }
     return res.(ArchivesPostResponseable), nil
 }
-// ToPostRequestInformation register a new gzip archive to be uploaded to the URL indicated in the response
+// ToPostRequestInformation register a new file archive to be uploaded to the URL indicated in the response
 // returns a *RequestInformation when successful
-func (m *ArchivesRequestBuilder) ToPostRequestInformation(ctx context.Context, body ArchivesPostRequestBodyable, requestConfiguration *ArchivesRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
+func (m *ArchivesRequestBuilder) ToPostRequestInformation(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Archiveable, requestConfiguration *ArchivesRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
     requestInfo := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.POST, m.BaseRequestBuilder.UrlTemplate, m.BaseRequestBuilder.PathParameters)
     if requestConfiguration != nil {
         requestInfo.Headers.AddAll(requestConfiguration.Headers)

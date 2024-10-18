@@ -94,7 +94,7 @@ func (m *NamespacesRequestBuilder) GetAsNamespacesGetResponse(ctx context.Contex
 // Deprecated: This method is obsolete. Use PostAsNamespacesPostResponse instead.
 // returns a NamespacesResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *NamespacesRequestBuilder) Post(ctx context.Context, body NamespacesPostRequestBodyable, requestConfiguration *NamespacesRequestBuilderPostRequestConfiguration)(NamespacesResponseable, error) {
+func (m *NamespacesRequestBuilder) Post(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Namespaceable, requestConfiguration *NamespacesRequestBuilderPostRequestConfiguration)(NamespacesResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -114,7 +114,7 @@ func (m *NamespacesRequestBuilder) Post(ctx context.Context, body NamespacesPost
 // PostAsNamespacesPostResponse create a new Namespace
 // returns a NamespacesPostResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *NamespacesRequestBuilder) PostAsNamespacesPostResponse(ctx context.Context, body NamespacesPostRequestBodyable, requestConfiguration *NamespacesRequestBuilderPostRequestConfiguration)(NamespacesPostResponseable, error) {
+func (m *NamespacesRequestBuilder) PostAsNamespacesPostResponse(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Namespaceable, requestConfiguration *NamespacesRequestBuilderPostRequestConfiguration)(NamespacesPostResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -144,7 +144,7 @@ func (m *NamespacesRequestBuilder) ToGetRequestInformation(ctx context.Context, 
 }
 // ToPostRequestInformation create a new Namespace
 // returns a *RequestInformation when successful
-func (m *NamespacesRequestBuilder) ToPostRequestInformation(ctx context.Context, body NamespacesPostRequestBodyable, requestConfiguration *NamespacesRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
+func (m *NamespacesRequestBuilder) ToPostRequestInformation(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Namespaceable, requestConfiguration *NamespacesRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
     requestInfo := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.POST, m.BaseRequestBuilder.UrlTemplate, m.BaseRequestBuilder.PathParameters)
     if requestConfiguration != nil {
         requestInfo.Headers.AddAll(requestConfiguration.Headers)

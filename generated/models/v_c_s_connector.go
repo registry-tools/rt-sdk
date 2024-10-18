@@ -14,6 +14,8 @@ type VCSConnector struct {
     description *string
     // The id property
     id *string
+    // The token property
+    token *string
     // The updatedAt property
     updatedAt *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time
 }
@@ -78,6 +80,16 @@ func (m *VCSConnector) GetFieldDeserializers()(map[string]func(i878a80d2330e89d2
         }
         return nil
     }
+    res["token"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
+        val, err := n.GetStringValue()
+        if err != nil {
+            return err
+        }
+        if val != nil {
+            m.SetToken(val)
+        }
+        return nil
+    }
     res["updated-at"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
         val, err := n.GetTimeValue()
         if err != nil {
@@ -95,6 +107,11 @@ func (m *VCSConnector) GetFieldDeserializers()(map[string]func(i878a80d2330e89d2
 func (m *VCSConnector) GetId()(*string) {
     return m.id
 }
+// GetToken gets the token property value. The token property
+// returns a *string when successful
+func (m *VCSConnector) GetToken()(*string) {
+    return m.token
+}
 // GetUpdatedAt gets the updated-at property value. The updatedAt property
 // returns a *Time when successful
 func (m *VCSConnector) GetUpdatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time) {
@@ -103,25 +120,13 @@ func (m *VCSConnector) GetUpdatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a
 // Serialize serializes information the current object
 func (m *VCSConnector) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.SerializationWriter)(error) {
     {
-        err := writer.WriteTimeValue("created-at", m.GetCreatedAt())
-        if err != nil {
-            return err
-        }
-    }
-    {
         err := writer.WriteStringValue("description", m.GetDescription())
         if err != nil {
             return err
         }
     }
     {
-        err := writer.WriteStringValue("id", m.GetId())
-        if err != nil {
-            return err
-        }
-    }
-    {
-        err := writer.WriteTimeValue("updated-at", m.GetUpdatedAt())
+        err := writer.WriteStringValue("token", m.GetToken())
         if err != nil {
             return err
         }
@@ -150,6 +155,10 @@ func (m *VCSConnector) SetDescription(value *string)() {
 func (m *VCSConnector) SetId(value *string)() {
     m.id = value
 }
+// SetToken sets the token property value. The token property
+func (m *VCSConnector) SetToken(value *string)() {
+    m.token = value
+}
 // SetUpdatedAt sets the updated-at property value. The updatedAt property
 func (m *VCSConnector) SetUpdatedAt(value *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)() {
     m.updatedAt = value
@@ -160,9 +169,11 @@ type VCSConnectorable interface {
     GetCreatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)
     GetDescription()(*string)
     GetId()(*string)
+    GetToken()(*string)
     GetUpdatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)
     SetCreatedAt(value *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)()
     SetDescription(value *string)()
     SetId(value *string)()
+    SetToken(value *string)()
     SetUpdatedAt(value *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)()
 }

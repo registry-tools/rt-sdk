@@ -82,7 +82,7 @@ func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) GetAsAuthenticat
 // Deprecated: This method is obsolete. Use PostAsAuthenticationTokensPostResponse instead.
 // returns a ServiceAccountsItemAuthenticationTokensResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) Post(ctx context.Context, body ServiceAccountsItemAuthenticationTokensPostRequestBodyable, requestConfiguration *ServiceAccountsItemAuthenticationTokensRequestBuilderPostRequestConfiguration)(ServiceAccountsItemAuthenticationTokensResponseable, error) {
+func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) Post(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.AuthenticationTokenable, requestConfiguration *ServiceAccountsItemAuthenticationTokensRequestBuilderPostRequestConfiguration)(ServiceAccountsItemAuthenticationTokensResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -102,7 +102,7 @@ func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) Post(ctx context
 // PostAsAuthenticationTokensPostResponse create a new Authentication Token for a Service Account
 // returns a ServiceAccountsItemAuthenticationTokensPostResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) PostAsAuthenticationTokensPostResponse(ctx context.Context, body ServiceAccountsItemAuthenticationTokensPostRequestBodyable, requestConfiguration *ServiceAccountsItemAuthenticationTokensRequestBuilderPostRequestConfiguration)(ServiceAccountsItemAuthenticationTokensPostResponseable, error) {
+func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) PostAsAuthenticationTokensPostResponse(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.AuthenticationTokenable, requestConfiguration *ServiceAccountsItemAuthenticationTokensRequestBuilderPostRequestConfiguration)(ServiceAccountsItemAuthenticationTokensPostResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -132,7 +132,7 @@ func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) ToGetRequestInfo
 }
 // ToPostRequestInformation create a new Authentication Token for a Service Account
 // returns a *RequestInformation when successful
-func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) ToPostRequestInformation(ctx context.Context, body ServiceAccountsItemAuthenticationTokensPostRequestBodyable, requestConfiguration *ServiceAccountsItemAuthenticationTokensRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
+func (m *ServiceAccountsItemAuthenticationTokensRequestBuilder) ToPostRequestInformation(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.AuthenticationTokenable, requestConfiguration *ServiceAccountsItemAuthenticationTokensRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
     requestInfo := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.POST, m.BaseRequestBuilder.UrlTemplate, m.BaseRequestBuilder.PathParameters)
     if requestConfiguration != nil {
         requestInfo.Headers.AddAll(requestConfiguration.Headers)

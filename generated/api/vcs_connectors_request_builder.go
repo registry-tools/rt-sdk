@@ -42,11 +42,11 @@ func NewVcsConnectorsRequestBuilder(rawUrl string, requestAdapter i2ae4187f7daee
     urlParams["request-raw-url"] = rawUrl
     return NewVcsConnectorsRequestBuilderInternal(urlParams, requestAdapter)
 }
-// Post create a new VCS Connector
+// Post create a new VCS Connector, used to connect to a VCS repository
 // Deprecated: This method is obsolete. Use PostAsVcsConnectorsPostResponse instead.
 // returns a VcsConnectorsResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *VcsConnectorsRequestBuilder) Post(ctx context.Context, body VcsConnectorsPostRequestBodyable, requestConfiguration *VcsConnectorsRequestBuilderPostRequestConfiguration)(VcsConnectorsResponseable, error) {
+func (m *VcsConnectorsRequestBuilder) Post(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.VCSConnectorable, requestConfiguration *VcsConnectorsRequestBuilderPostRequestConfiguration)(VcsConnectorsResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -63,10 +63,10 @@ func (m *VcsConnectorsRequestBuilder) Post(ctx context.Context, body VcsConnecto
     }
     return res.(VcsConnectorsResponseable), nil
 }
-// PostAsVcsConnectorsPostResponse create a new VCS Connector
+// PostAsVcsConnectorsPostResponse create a new VCS Connector, used to connect to a VCS repository
 // returns a VcsConnectorsPostResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *VcsConnectorsRequestBuilder) PostAsVcsConnectorsPostResponse(ctx context.Context, body VcsConnectorsPostRequestBodyable, requestConfiguration *VcsConnectorsRequestBuilderPostRequestConfiguration)(VcsConnectorsPostResponseable, error) {
+func (m *VcsConnectorsRequestBuilder) PostAsVcsConnectorsPostResponse(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.VCSConnectorable, requestConfiguration *VcsConnectorsRequestBuilderPostRequestConfiguration)(VcsConnectorsPostResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -83,9 +83,9 @@ func (m *VcsConnectorsRequestBuilder) PostAsVcsConnectorsPostResponse(ctx contex
     }
     return res.(VcsConnectorsPostResponseable), nil
 }
-// ToPostRequestInformation create a new VCS Connector
+// ToPostRequestInformation create a new VCS Connector, used to connect to a VCS repository
 // returns a *RequestInformation when successful
-func (m *VcsConnectorsRequestBuilder) ToPostRequestInformation(ctx context.Context, body VcsConnectorsPostRequestBodyable, requestConfiguration *VcsConnectorsRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
+func (m *VcsConnectorsRequestBuilder) ToPostRequestInformation(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.VCSConnectorable, requestConfiguration *VcsConnectorsRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
     requestInfo := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.POST, m.BaseRequestBuilder.UrlTemplate, m.BaseRequestBuilder.PathParameters)
     if requestConfiguration != nil {
         requestInfo.Headers.AddAll(requestConfiguration.Headers)

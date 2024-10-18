@@ -120,31 +120,13 @@ func (m *Namespace) GetUpdatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a163
 // Serialize serializes information the current object
 func (m *Namespace) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.SerializationWriter)(error) {
     {
-        err := writer.WriteTimeValue("created-at", m.GetCreatedAt())
-        if err != nil {
-            return err
-        }
-    }
-    {
         err := writer.WriteStringValue("description", m.GetDescription())
         if err != nil {
             return err
         }
     }
     {
-        err := writer.WriteStringValue("id", m.GetId())
-        if err != nil {
-            return err
-        }
-    }
-    {
         err := writer.WriteStringValue("name", m.GetName())
-        if err != nil {
-            return err
-        }
-    }
-    {
-        err := writer.WriteTimeValue("updated-at", m.GetUpdatedAt())
         if err != nil {
             return err
         }

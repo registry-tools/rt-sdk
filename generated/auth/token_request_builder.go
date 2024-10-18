@@ -3,6 +3,7 @@ package auth
 import (
     "context"
     i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f "github.com/microsoft/kiota-abstractions-go"
+    ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8 "github.com/registry-tools/rt-sdk/generated/models"
 )
 
 // TokenRequestBuilder builds and executes requests for operations under \auth\token
@@ -30,45 +31,24 @@ func NewTokenRequestBuilder(rawUrl string, requestAdapter i2ae4187f7daee263371cb
     return NewTokenRequestBuilderInternal(urlParams, requestAdapter)
 }
 // Post exchange credentials for an access token
-// Deprecated: This method is obsolete. Use PostAsTokenPostResponse instead.
-// returns a TokenResponseable when successful
-// returns a Token400Error error when the service returns a 400 status code
-func (m *TokenRequestBuilder) Post(ctx context.Context, body TokenPostRequestBodyable, requestConfiguration *TokenRequestBuilderPostRequestConfiguration)(TokenResponseable, error) {
+// returns a AccessTokenable when successful
+// returns a AccessToken400Error error when the service returns a 400 status code
+func (m *TokenRequestBuilder) Post(ctx context.Context, body TokenPostRequestBodyable, requestConfiguration *TokenRequestBuilderPostRequestConfiguration)(ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.AccessTokenable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
     }
     errorMapping := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.ErrorMappings {
-        "400": CreateToken400ErrorFromDiscriminatorValue,
+        "400": CreateAccessToken400ErrorFromDiscriminatorValue,
     }
-    res, err := m.BaseRequestBuilder.RequestAdapter.Send(ctx, requestInfo, CreateTokenResponseFromDiscriminatorValue, errorMapping)
+    res, err := m.BaseRequestBuilder.RequestAdapter.Send(ctx, requestInfo, ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.CreateAccessTokenFromDiscriminatorValue, errorMapping)
     if err != nil {
         return nil, err
     }
     if res == nil {
         return nil, nil
     }
-    return res.(TokenResponseable), nil
-}
-// PostAsTokenPostResponse exchange credentials for an access token
-// returns a TokenPostResponseable when successful
-// returns a Token400Error error when the service returns a 400 status code
-func (m *TokenRequestBuilder) PostAsTokenPostResponse(ctx context.Context, body TokenPostRequestBodyable, requestConfiguration *TokenRequestBuilderPostRequestConfiguration)(TokenPostResponseable, error) {
-    requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
-    if err != nil {
-        return nil, err
-    }
-    errorMapping := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.ErrorMappings {
-        "400": CreateToken400ErrorFromDiscriminatorValue,
-    }
-    res, err := m.BaseRequestBuilder.RequestAdapter.Send(ctx, requestInfo, CreateTokenPostResponseFromDiscriminatorValue, errorMapping)
-    if err != nil {
-        return nil, err
-    }
-    if res == nil {
-        return nil, nil
-    }
-    return res.(TokenPostResponseable), nil
+    return res.(ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.AccessTokenable), nil
 }
 // ToPostRequestInformation exchange credentials for an access token
 // returns a *RequestInformation when successful

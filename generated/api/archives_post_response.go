@@ -11,7 +11,7 @@ type ArchivesPostResponse struct {
     // The data property
     data ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Archiveable
     // The meta property
-    meta ArchivesPostResponse_metaable
+    meta ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.MetaArchiveable
 }
 // NewArchivesPostResponse instantiates a new ArchivesPostResponse and sets the default values.
 func NewArchivesPostResponse()(*ArchivesPostResponse) {
@@ -50,20 +50,20 @@ func (m *ArchivesPostResponse) GetFieldDeserializers()(map[string]func(i878a80d2
         return nil
     }
     res["meta"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
-        val, err := n.GetObjectValue(CreateArchivesPostResponse_metaFromDiscriminatorValue)
+        val, err := n.GetObjectValue(ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.CreateMetaArchiveFromDiscriminatorValue)
         if err != nil {
             return err
         }
         if val != nil {
-            m.SetMeta(val.(ArchivesPostResponse_metaable))
+            m.SetMeta(val.(ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.MetaArchiveable))
         }
         return nil
     }
     return res
 }
 // GetMeta gets the meta property value. The meta property
-// returns a ArchivesPostResponse_metaable when successful
-func (m *ArchivesPostResponse) GetMeta()(ArchivesPostResponse_metaable) {
+// returns a MetaArchiveable when successful
+func (m *ArchivesPostResponse) GetMeta()(ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.MetaArchiveable) {
     return m.meta
 }
 // Serialize serializes information the current object
@@ -97,14 +97,14 @@ func (m *ArchivesPostResponse) SetData(value ib0a1d83fbec960f9e17742ee01031c795b
     m.data = value
 }
 // SetMeta sets the meta property value. The meta property
-func (m *ArchivesPostResponse) SetMeta(value ArchivesPostResponse_metaable)() {
+func (m *ArchivesPostResponse) SetMeta(value ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.MetaArchiveable)() {
     m.meta = value
 }
 type ArchivesPostResponseable interface {
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.AdditionalDataHolder
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable
     GetData()(ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Archiveable)
-    GetMeta()(ArchivesPostResponse_metaable)
+    GetMeta()(ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.MetaArchiveable)
     SetData(value ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.Archiveable)()
-    SetMeta(value ArchivesPostResponse_metaable)()
+    SetMeta(value ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.MetaArchiveable)()
 }

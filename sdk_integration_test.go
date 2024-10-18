@@ -8,7 +8,6 @@ import (
 	"time"
 
 	sdk "github.com/registry-tools/rt-sdk"
-	"github.com/registry-tools/rt-sdk/generated/api"
 	"github.com/registry-tools/rt-sdk/generated/models"
 )
 
@@ -86,9 +85,6 @@ func TestAccNamespacesCreate(t *testing.T) {
 	newNamespace.SetName(&name)
 	newNamespace.SetDescription(&description)
 
-	newNamespaceBody := api.NewNamespacesPostRequestBody()
-	newNamespaceBody.SetNamespace(newNamespace)
-
 	response, err := client.Api().Namespaces().GetAsNamespacesGetResponse(ctx, nil)
 	if err != nil {
 		if modelError, ok := err.(*models.Errors); ok {
@@ -102,7 +98,7 @@ func TestAccNamespacesCreate(t *testing.T) {
 		t.Logf("Got namespace %s / %s", *ns.GetId(), *ns.GetName())
 	}
 
-	namespace, err := client.Api().Namespaces().PostAsNamespacesPostResponse(ctx, newNamespaceBody, nil)
+	namespace, err := client.Api().Namespaces().PostAsNamespacesPostResponse(ctx, newNamespace, nil)
 	if err != nil {
 		if modelError, ok := err.(*models.Errors); ok {
 			fatalError(t, modelError)

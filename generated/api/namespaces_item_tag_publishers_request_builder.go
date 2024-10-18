@@ -34,7 +34,7 @@ func NewNamespacesItemTagPublishersRequestBuilder(rawUrl string, requestAdapter 
 // Deprecated: This method is obsolete. Use PostAsTagPublishersPostResponse instead.
 // returns a NamespacesItemTagPublishersResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *NamespacesItemTagPublishersRequestBuilder) Post(ctx context.Context, body NamespacesItemTagPublishersPostRequestBodyable, requestConfiguration *NamespacesItemTagPublishersRequestBuilderPostRequestConfiguration)(NamespacesItemTagPublishersResponseable, error) {
+func (m *NamespacesItemTagPublishersRequestBuilder) Post(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.TagPublisherable, requestConfiguration *NamespacesItemTagPublishersRequestBuilderPostRequestConfiguration)(NamespacesItemTagPublishersResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -54,7 +54,7 @@ func (m *NamespacesItemTagPublishersRequestBuilder) Post(ctx context.Context, bo
 // PostAsTagPublishersPostResponse create a Tag Publisher
 // returns a NamespacesItemTagPublishersPostResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *NamespacesItemTagPublishersRequestBuilder) PostAsTagPublishersPostResponse(ctx context.Context, body NamespacesItemTagPublishersPostRequestBodyable, requestConfiguration *NamespacesItemTagPublishersRequestBuilderPostRequestConfiguration)(NamespacesItemTagPublishersPostResponseable, error) {
+func (m *NamespacesItemTagPublishersRequestBuilder) PostAsTagPublishersPostResponse(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.TagPublisherable, requestConfiguration *NamespacesItemTagPublishersRequestBuilderPostRequestConfiguration)(NamespacesItemTagPublishersPostResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -73,7 +73,7 @@ func (m *NamespacesItemTagPublishersRequestBuilder) PostAsTagPublishersPostRespo
 }
 // ToPostRequestInformation create a Tag Publisher
 // returns a *RequestInformation when successful
-func (m *NamespacesItemTagPublishersRequestBuilder) ToPostRequestInformation(ctx context.Context, body NamespacesItemTagPublishersPostRequestBodyable, requestConfiguration *NamespacesItemTagPublishersRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
+func (m *NamespacesItemTagPublishersRequestBuilder) ToPostRequestInformation(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.TagPublisherable, requestConfiguration *NamespacesItemTagPublishersRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
     requestInfo := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.POST, m.BaseRequestBuilder.UrlTemplate, m.BaseRequestBuilder.PathParameters)
     if requestConfiguration != nil {
         requestInfo.Headers.AddAll(requestConfiguration.Headers)

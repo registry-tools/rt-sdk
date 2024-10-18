@@ -8,6 +8,8 @@ import (
 type TagPublisher struct {
     // Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
     additionalData map[string]any
+    // The backfillPattern property
+    backfillPattern *string
     // The createdAt property
     createdAt *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time
     // The id property
@@ -36,6 +38,11 @@ func CreateTagPublisherFromDiscriminatorValue(parseNode i878a80d2330e89d26896388
 func (m *TagPublisher) GetAdditionalData()(map[string]any) {
     return m.additionalData
 }
+// GetBackfillPattern gets the backfill-pattern property value. The backfillPattern property
+// returns a *string when successful
+func (m *TagPublisher) GetBackfillPattern()(*string) {
+    return m.backfillPattern
+}
 // GetCreatedAt gets the created-at property value. The createdAt property
 // returns a *Time when successful
 func (m *TagPublisher) GetCreatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time) {
@@ -45,6 +52,16 @@ func (m *TagPublisher) GetCreatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a
 // returns a map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error) when successful
 func (m *TagPublisher) GetFieldDeserializers()(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error)) {
     res := make(map[string]func(i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode)(error))
+    res["backfill-pattern"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
+        val, err := n.GetStringValue()
+        if err != nil {
+            return err
+        }
+        if val != nil {
+            m.SetBackfillPattern(val)
+        }
+        return nil
+    }
     res["created-at"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
         val, err := n.GetTimeValue()
         if err != nil {
@@ -120,25 +137,13 @@ func (m *TagPublisher) GetVcsConnectorId()(*string) {
 // Serialize serializes information the current object
 func (m *TagPublisher) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.SerializationWriter)(error) {
     {
-        err := writer.WriteTimeValue("created-at", m.GetCreatedAt())
-        if err != nil {
-            return err
-        }
-    }
-    {
-        err := writer.WriteStringValue("id", m.GetId())
+        err := writer.WriteStringValue("backfill-pattern", m.GetBackfillPattern())
         if err != nil {
             return err
         }
     }
     {
         err := writer.WriteStringValue("repo", m.GetRepo())
-        if err != nil {
-            return err
-        }
-    }
-    {
-        err := writer.WriteTimeValue("updated-at", m.GetUpdatedAt())
         if err != nil {
             return err
         }
@@ -160,6 +165,10 @@ func (m *TagPublisher) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e
 // SetAdditionalData sets the AdditionalData property value. Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
 func (m *TagPublisher) SetAdditionalData(value map[string]any)() {
     m.additionalData = value
+}
+// SetBackfillPattern sets the backfill-pattern property value. The backfillPattern property
+func (m *TagPublisher) SetBackfillPattern(value *string)() {
+    m.backfillPattern = value
 }
 // SetCreatedAt sets the created-at property value. The createdAt property
 func (m *TagPublisher) SetCreatedAt(value *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)() {
@@ -184,11 +193,13 @@ func (m *TagPublisher) SetVcsConnectorId(value *string)() {
 type TagPublisherable interface {
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.AdditionalDataHolder
     i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.Parsable
+    GetBackfillPattern()(*string)
     GetCreatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)
     GetId()(*string)
     GetRepo()(*string)
     GetUpdatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)
     GetVcsConnectorId()(*string)
+    SetBackfillPattern(value *string)()
     SetCreatedAt(value *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)()
     SetId(value *string)()
     SetRepo(value *string)()

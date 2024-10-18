@@ -82,7 +82,7 @@ func (m *NamespacesItemServiceAccountsRequestBuilder) GetAsServiceAccountsGetRes
 // Deprecated: This method is obsolete. Use PostAsServiceAccountsPostResponse instead.
 // returns a NamespacesItemServiceAccountsResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *NamespacesItemServiceAccountsRequestBuilder) Post(ctx context.Context, body NamespacesItemServiceAccountsPostRequestBodyable, requestConfiguration *NamespacesItemServiceAccountsRequestBuilderPostRequestConfiguration)(NamespacesItemServiceAccountsResponseable, error) {
+func (m *NamespacesItemServiceAccountsRequestBuilder) Post(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.ServiceAccountable, requestConfiguration *NamespacesItemServiceAccountsRequestBuilderPostRequestConfiguration)(NamespacesItemServiceAccountsResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -102,7 +102,7 @@ func (m *NamespacesItemServiceAccountsRequestBuilder) Post(ctx context.Context, 
 // PostAsServiceAccountsPostResponse create a new Service Account
 // returns a NamespacesItemServiceAccountsPostResponseable when successful
 // returns a Errors error when the service returns a 4XX or 5XX status code
-func (m *NamespacesItemServiceAccountsRequestBuilder) PostAsServiceAccountsPostResponse(ctx context.Context, body NamespacesItemServiceAccountsPostRequestBodyable, requestConfiguration *NamespacesItemServiceAccountsRequestBuilderPostRequestConfiguration)(NamespacesItemServiceAccountsPostResponseable, error) {
+func (m *NamespacesItemServiceAccountsRequestBuilder) PostAsServiceAccountsPostResponse(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.ServiceAccountable, requestConfiguration *NamespacesItemServiceAccountsRequestBuilderPostRequestConfiguration)(NamespacesItemServiceAccountsPostResponseable, error) {
     requestInfo, err := m.ToPostRequestInformation(ctx, body, requestConfiguration);
     if err != nil {
         return nil, err
@@ -132,7 +132,7 @@ func (m *NamespacesItemServiceAccountsRequestBuilder) ToGetRequestInformation(ct
 }
 // ToPostRequestInformation create a new Service Account
 // returns a *RequestInformation when successful
-func (m *NamespacesItemServiceAccountsRequestBuilder) ToPostRequestInformation(ctx context.Context, body NamespacesItemServiceAccountsPostRequestBodyable, requestConfiguration *NamespacesItemServiceAccountsRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
+func (m *NamespacesItemServiceAccountsRequestBuilder) ToPostRequestInformation(ctx context.Context, body ib0a1d83fbec960f9e17742ee01031c795b4f720ed854aa216c9d12a10c9701e8.ServiceAccountable, requestConfiguration *NamespacesItemServiceAccountsRequestBuilderPostRequestConfiguration)(*i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.RequestInformation, error) {
     requestInfo := i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(i2ae4187f7daee263371cb1c977df639813ab50ffa529013b7437480d1ec0158f.POST, m.BaseRequestBuilder.UrlTemplate, m.BaseRequestBuilder.PathParameters)
     if requestConfiguration != nil {
         requestInfo.Headers.AddAll(requestConfiguration.Headers)

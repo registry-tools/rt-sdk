@@ -7,11 +7,11 @@ import (
 type TokenPostRequestBody struct {
     // Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.
     additionalData map[string]any
-    // The client_id property
+    // The client ID associated with the organization or service account
     client_id *string
-    // The client_secret property
+    // The client secret associated with the organization or service account
     client_secret *string
-    // The grant_type property
+    // Should always be "authorization_code"
     grant_type *string
 }
 // NewTokenPostRequestBody instantiates a new TokenPostRequestBody and sets the default values.
@@ -31,12 +31,12 @@ func CreateTokenPostRequestBodyFromDiscriminatorValue(parseNode i878a80d2330e89d
 func (m *TokenPostRequestBody) GetAdditionalData()(map[string]any) {
     return m.additionalData
 }
-// GetClientId gets the client_id property value. The client_id property
+// GetClientId gets the client_id property value. The client ID associated with the organization or service account
 // returns a *string when successful
 func (m *TokenPostRequestBody) GetClientId()(*string) {
     return m.client_id
 }
-// GetClientSecret gets the client_secret property value. The client_secret property
+// GetClientSecret gets the client_secret property value. The client secret associated with the organization or service account
 // returns a *string when successful
 func (m *TokenPostRequestBody) GetClientSecret()(*string) {
     return m.client_secret
@@ -77,7 +77,7 @@ func (m *TokenPostRequestBody) GetFieldDeserializers()(map[string]func(i878a80d2
     }
     return res
 }
-// GetGrantType gets the grant_type property value. The grant_type property
+// GetGrantType gets the grant_type property value. Should always be "authorization_code"
 // returns a *string when successful
 func (m *TokenPostRequestBody) GetGrantType()(*string) {
     return m.grant_type
@@ -114,15 +114,15 @@ func (m *TokenPostRequestBody) Serialize(writer i878a80d2330e89d26896388a3f487ee
 func (m *TokenPostRequestBody) SetAdditionalData(value map[string]any)() {
     m.additionalData = value
 }
-// SetClientId sets the client_id property value. The client_id property
+// SetClientId sets the client_id property value. The client ID associated with the organization or service account
 func (m *TokenPostRequestBody) SetClientId(value *string)() {
     m.client_id = value
 }
-// SetClientSecret sets the client_secret property value. The client_secret property
+// SetClientSecret sets the client_secret property value. The client secret associated with the organization or service account
 func (m *TokenPostRequestBody) SetClientSecret(value *string)() {
     m.client_secret = value
 }
-// SetGrantType sets the grant_type property value. The grant_type property
+// SetGrantType sets the grant_type property value. Should always be "authorization_code"
 func (m *TokenPostRequestBody) SetGrantType(value *string)() {
     m.grant_type = value
 }
