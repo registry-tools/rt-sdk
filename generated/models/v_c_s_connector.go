@@ -14,6 +14,8 @@ type VCSConnector struct {
     description *string
     // The id property
     id *string
+    // The VCS provider, must be "github" for now
+    provider *string
     // The token property
     token *string
     // The updatedAt property
@@ -80,6 +82,16 @@ func (m *VCSConnector) GetFieldDeserializers()(map[string]func(i878a80d2330e89d2
         }
         return nil
     }
+    res["provider"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
+        val, err := n.GetStringValue()
+        if err != nil {
+            return err
+        }
+        if val != nil {
+            m.SetProvider(val)
+        }
+        return nil
+    }
     res["token"] = func (n i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.ParseNode) error {
         val, err := n.GetStringValue()
         if err != nil {
@@ -107,6 +119,11 @@ func (m *VCSConnector) GetFieldDeserializers()(map[string]func(i878a80d2330e89d2
 func (m *VCSConnector) GetId()(*string) {
     return m.id
 }
+// GetProvider gets the provider property value. The VCS provider, must be "github" for now
+// returns a *string when successful
+func (m *VCSConnector) GetProvider()(*string) {
+    return m.provider
+}
 // GetToken gets the token property value. The token property
 // returns a *string when successful
 func (m *VCSConnector) GetToken()(*string) {
@@ -121,6 +138,12 @@ func (m *VCSConnector) GetUpdatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a
 func (m *VCSConnector) Serialize(writer i878a80d2330e89d26896388a3f487eef27b0a0e6c010c493bf80be1452208f91.SerializationWriter)(error) {
     {
         err := writer.WriteStringValue("description", m.GetDescription())
+        if err != nil {
+            return err
+        }
+    }
+    {
+        err := writer.WriteStringValue("provider", m.GetProvider())
         if err != nil {
             return err
         }
@@ -155,6 +178,10 @@ func (m *VCSConnector) SetDescription(value *string)() {
 func (m *VCSConnector) SetId(value *string)() {
     m.id = value
 }
+// SetProvider sets the provider property value. The VCS provider, must be "github" for now
+func (m *VCSConnector) SetProvider(value *string)() {
+    m.provider = value
+}
 // SetToken sets the token property value. The token property
 func (m *VCSConnector) SetToken(value *string)() {
     m.token = value
@@ -169,11 +196,13 @@ type VCSConnectorable interface {
     GetCreatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)
     GetDescription()(*string)
     GetId()(*string)
+    GetProvider()(*string)
     GetToken()(*string)
     GetUpdatedAt()(*i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)
     SetCreatedAt(value *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)()
     SetDescription(value *string)()
     SetId(value *string)()
+    SetProvider(value *string)()
     SetToken(value *string)()
     SetUpdatedAt(value *i336074805fc853987abe6f7fe3ad97a6a6f3077a16391fec744f671a015fbd7e.Time)()
 }
