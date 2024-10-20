@@ -73,7 +73,7 @@ func (s *sdk) UploadFileArchive(ctx context.Context, key string, archive io.Read
 
 	response, err := s.Api().Archives().PostAsArchivesPostResponse(ctx, body, nil)
 	if err != nil {
-		return nil, fmt.Errorf("failed to prepare file upload: %w", err)
+		return nil, FormatAPIError(err)
 	}
 
 	uploadURL := response.GetMeta().GetUploadUrl()
