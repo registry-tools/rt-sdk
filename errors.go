@@ -28,7 +28,7 @@ func FormatAPIError(err error) error {
 			result += fmt.Sprintf("%s, %s", *e.GetTitle(), *e.GetDetail())
 		}
 	} else {
-		result = fmt.Sprintf("unknown error %q -- This error should have been known by the SDK but was not", err, err.Error())
+		result = fmt.Sprintf("unknown error %q -- This error should have been known by the SDK but was not", err.Error())
 	}
 	return errors.New(result)
 }

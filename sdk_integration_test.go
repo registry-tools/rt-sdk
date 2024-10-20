@@ -41,7 +41,7 @@ func TestAccServiceDiscovery(t *testing.T) {
 	services := []string{
 		"modules.v1",
 		"tfe.v2",
-		"modules-rt.v1",
+		"rt.v1",
 	}
 
 	for _, svc := range services {
